@@ -1,4 +1,4 @@
-#Lindsay Poirier created this script. 
+#Lindsay Poirier created this script with inspiration and guidance from http://toddhayton.com/2015/05/14/using-selenium-to-scrape-aspnet-pages-with-ajax-pagination/
 import re
 import string
 import urlparse
