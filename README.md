@@ -20,8 +20,8 @@ Users should be able to drag a bounding box over an area and receive the number 
 * QGIS (would like to switch to Carto)
 * Department of City Planning (DCP)’s PLUTO file
 * Department of Consumer Affairs (DCA’s) Legally Operating Businesses Dataset
-* Data scraped from the NYS Licensee database using this Python script and Geocoded with DCP’s GeoSupport Desktop software
-* The Mayor’s Office of Data Analytics (MODA)’s Multi-Agency Permit Dataset (currently under revision; see this letter to MODA)
+* Data scraped from the NYS Licensee database using [this](https://github.com/BetaNYC/Map-Vacant-Storefront/blob/master/Scripts/NYSLicensesSelenium.py) Python script and Geocoded with DCP’s GeoSupport Desktop software
+* The Mayor’s Office of Data Analytics (MODA)’s Multi-Agency Permit Dataset (currently under revision; see [this](https://docs.google.com/document/d/1XgQbVEwl0zLXQFyW_IjIYBdYUocXhiK5gqZwEVudlhw/edit) letter to MODA)
 * Google Street View API
 
 ### Missing Dependencies
@@ -31,7 +31,7 @@ Users should be able to drag a bounding box over an area and receive the number 
 
 ### Current Strategy
 
-We mapped all of the BBLs in the PLUTO dataset that have a Building Class of K, C7, D6, D7, G3, L1, L8, RC, RK, S, O4, O5, O6 as polygons. We then joined the fields corresponding to businesses with ‘Active’ licenses in the Legally Operating Businesses dataset to the PLUTO dataset according to the corresponding BBLs and hiding the PLUTO polygons (designating a commercial address) when there was a match. The Legally Operating Business dataset includes permits for the following NYC industries:
+We mapped all of the BBLs in the PLUTO dataset that have a [Building Class](http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html) of K, C7, D6, D7, G3, L1, L8, RC, RK, S, O4, O5, O6 as polygons. We then joined the fields corresponding to businesses with ‘Active’ licenses in the Legally Operating Businesses dataset to the PLUTO dataset according to the corresponding BBLs and hiding the PLUTO polygons (designating a commercial address) when there was a match. The Legally Operating Business dataset includes permits for the following NYC industries:
 
 * Amusement Arcade
 * Amusement Device - Permanent
@@ -90,7 +90,7 @@ We mapped all of the BBLs in the PLUTO dataset that have a Building Class of K, 
 * Tow Truck Driver
 * Tow Truck Exemption
 
-We wrote a script to scrape the Licensing data for Barbershops and Beauty Salons from the NYS Licensee portal, which can be accessed at: This licensee portal is updated daily, but the script takes several hours to run, so we are planning on updating it monthly (see this letter to Secretary of State Rosado, asking for data to streamline this).  After we scraped the data from this site, we geocoded it using DCP’s GeoSupport Desktop software (function 1B) to add BBLs and coordinates for each licensed barbershop and beauty shop address. We had to do significant cleaning to the address field to do this - creating separate columns for the house number, street name, and zip code, and dividing the strings in the address field into these columns. This was a lot more complicated when addresses included floor, apartment, suite, or unit numbers; for the most part, these needed to be manually stripped from the address fields. Once we had geocoded these files, we joined barbershops and beauty salons with a license status of ‘Active’ or ‘Expiring soon’ to the PLUTO dataset according to their corresponding BBLs and hiding the PLUTO polygons (designating a commercial address) when there was a match.
+We wrote a script to scrape the Licensing data for Barbershops and Beauty Salons from the NYS Licensee portal, which can be accessed [here](https://github.com/BetaNYC/Map-Vacant-Storefront/blob/master/Scripts/NYSLicensesSelenium.py) This licensee portal is updated daily, but the script takes several hours to run, so we are planning on updating it monthly (see [this](https://docs.google.com/document/d/1iOBE-K8JfdX8VT4Lrc2XCBPJn35XxQDozcZ4z44MWHE/edit) letter to Secretary of State Rosado, asking for data to streamline this).  After we scraped the data from this site, we geocoded it using DCP’s GeoSupport Desktop software (function 1B) to add BBLs and coordinates for each licensed barbershop and beauty shop address. We had to do significant cleaning to the address field to do this - creating separate columns for the house number, street name, and zip code, and dividing the strings in the address field into these columns. This was a lot more complicated when addresses included floor, apartment, suite, or unit numbers; for the most part, these needed to be manually stripped from the address fields. Once we had geocoded these files, we joined barbershops and beauty salons with a license status of ‘Active’ or ‘Expiring soon’ to the PLUTO dataset according to their corresponding BBLs and hiding the PLUTO polygons (designating a commercial address) when there was a match.
 
 The remaining PLUTO polygons should highlight were there may be a vacant storefront. 
 
@@ -101,7 +101,7 @@ We then installed the QGIS go2streetview plug-in (requires a Google Maps API key
 1. There may be more than one commercial address at a BBL, but the current strategy hides the building from the map if there are any legally operating businesses in that building. This means that buildings that have multiple commercial units and at least one active business will be hidden from the map, even if they have other commercial units in the building that are vacant. 
 2. The building class codes that we’ve designated as “commercial” codes include things like Office with Commercial Units - 1 to 6 stories (O5). When a building has this building code class, it does not guarantee that there is actually a commercial unit there. This means that certain buildings may show up on the map as having a vacant storefront even though there are no storefronts, or even commercial units, at that address. 
 3. The current strategy does not differentiate between storefronts, second-floor commercial units, basement commercial units, or commercial units inside a building. This means that certain buildings may show up on the map as having a vacant storefront even though the vacancy cannot be seen from the street. 
-4. The Multi-Agency Permits database is broken; see this letter to MODA asking for it to be fixed. This means that we cannot remove legally operating restaurants from the map. 
+4. The Multi-Agency Permits database is broken. We're working with MODA to get this fixed. This means that we cannot remove legally operating restaurants from the map. 
 
 ## Project Support Team
 Lindsay Poirier, BetaNYC. Contact me by emailing me < lindsay@beta.nyc >
